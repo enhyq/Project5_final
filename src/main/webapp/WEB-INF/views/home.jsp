@@ -1,21 +1,19 @@
 <%--
   Created by IntelliJ IDEA.
-  User: enhyq
-  Date: 2022/12/08
-  Time: 23:56
+  User: ryun
+  Date: 2022/12/02
+  Time: 9:19 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home</title>
+    <title>Home Sweet Home</title>
 </head>
 <body>
-    <h1>Welcome Home!</h1>
-    <h2>Say hi to ${homeName}</h2>
-    <h3>This doesn't work ${name}</h3>
-    <p>한국어 테스트!</p>
-    <p><a href="board/list">게시판으로 가기</a></p>
+    <h1>Don't Say hello world</h1>
+    <p> The time server is ${serverTime}.</p>
+    <p> <a href="board/list"> 게시판으로 가기 </a></p>
 </body>
 </html>

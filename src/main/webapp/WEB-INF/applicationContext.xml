@@ -7,9 +7,12 @@
     <bean name="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://walab.handong.edu:3306/p2_21900050" />
-        <property name="username" value="p2_21900050" />
-        <property name="password" value="ueL9ies8Ei" />
+<!--        <property name="url" value="jdbc:mysql://walab.handong.edu:3306/p2_21900050" />-->
+<!--        <property name="username" value="p2_21900050" />-->
+<!--        <property name="password" value="ueL9ies8Ei" />-->
+        <property name="url" value="jdbc:mysql://walab.handong.edu:3306/p2_21900059?useSSL=FALSE" />
+        <property name="username" value="p2_21900059" />
+        <property name="password" value="chahz8eH8o" />
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

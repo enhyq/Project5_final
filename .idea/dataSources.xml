@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mariadb://walab.handong.edu:3306/p2_21900050</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="p2_21900059@walab.handong.edu" uuid="ab4ec24b-d2b7-42bf-8fb5-1840c7d00198">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://walab.handong.edu:3306/p2_21900059</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

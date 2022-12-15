@@ -1,90 +1,119 @@
 package com.example;
 
-import com.example.board.BoardDAO;
+import com.example.board.BoardService;
 import com.example.board.BoardVO;
-import jdk.nashorn.internal.ir.RuntimeNode;
-import org.apache.commons.fileupload.FileUpload;
+import com.example.util.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletRequest;
-import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 @Controller
 public class BoardController {
-
     @Autowired
-    BoardDAO boardDAO;
+    BoardService boardService;
 
-    @RequestMapping("/board/list")
-    public String boardlist(Model model){
-        System.out.println("BoardController - mapping from /board/list ");
-        model.addAttribute("list", boardDAO.getBoardList());
+    //BoardDAO boardDAO;
+    @RequestMapping(value = "board/list", method = RequestMethod.GET)
+    public String list(Model model) {
+        model.addAttribute("list", boardService.getBoardList());
         return "list";
     }
 
-    @RequestMapping("/board/add")
+    @RequestMapping(value = "board/add", method = RequestMethod.GET)
     public String addPost(){
-        System.out.println("BoardController - mapping from /board/list ");
         return "addpostform";
     }
 
-    @RequestMapping("board/addok")
-    public String addPostOK(BoardVO vo, MultipartRequest request, @RequestParam("file") MultipartFile file) throws UnsupportedEncodingException {
-//        request.setCharacterEncoding("utf-8");
-//        MultipartFile file = request.getParameter("file");
-        request.getFile("image");
+    @RequestMapping(value = "board/addok", method = RequestMethod.POST)
+    public String addPostOk(HttpServletRequest request, Model model) {
+        try{
+            BoardVO vo;
+            FileUpload upload = new FileUpload();
+            vo = upload.uploadPhoto(request);
 
-//        FileUpload upload = new FileUpload();
-//        MemberVO u = upload.uploadPhoto(request); // returns MemberVO object
+            int i = boardService.insertBoard(vo);
 
-//        int i = memberDAO.insertMember(u);
-//        String msg = "데이터 추가 성공!";
-//        if(i == 0) msg = "[에러] 데이터 추가 실패 !";
-
-
-        int i = boardDAO.insertBoard(vo);
-
-        if(i == 0)
-            System.out.println("데이터 추가 실패");
-        else
-            System.out.println("데이터 추가 성공!!!");
+            if(i == 0){
+                System.out.println("데이터 추가 성공!");
+            } else {
+                System.out.println("데이터 추가 실패.");
+            }
+        } catch (Exception e) {
+            model.addAttribute("errorlog", e.getStackTrace().toString());
+            return "errorlog";
+        }
         return "redirect:list";
     }
 
-    @RequestMapping("board/editform/{id}")
-    public String editPost(@PathVariable("id") int id, Model model, ServletRequest request){
-
-        System.out.println(request.getParameter("pw"));
-
-        BoardVO boardVO = boardDAO.getBoard(id);
-
-        model.addAttribute("boardVO", boardVO);
-        return "editform";
-    }
-
-    @RequestMapping(value = "board/editok", method = RequestMethod.POST)
-    public String editPostOK(BoardVO vo){
-        int i = boardDAO.updateBoard(vo);
-        if(i == 0)
-            System.out.println("데이터 수정 실패!");
-        else
-            System.out.println("데이터 수정 성공!!!");
-        return "redirect:list";
-    }
-
-    @RequestMapping("board/deleteok/{id}")
-    public String deletePost(@PathVariable("id") int id){
-        int i = boardDAO.deleteBoard(id);
-        if(i == 0)
-            System.out.println("데이터 삭제 실패");
-        else
-            System.out.println("데이터 삭제 성공!!!");
+    @RequestMapping(value = "/board/editpost/{id}", method = RequestMethod.GET)
+    public String editPost(@PathVariable("id") int id, Model model, ServletRequest request) {
+        BoardVO boardVO = boardService.getBoard(id);
+        if(request.getParameter("pw").equals(boardVO.getPw())){
+            model.addAttribute("boardVO", boardVO);
+            return "editpost";
+        }
         return "redirect:../list";
     }
 
+    @RequestMapping(value = "/board/editok", method = RequestMethod.POST)
+    public String editPostOk(HttpServletRequest request) {
+        // vo 로 못 받아온다
+        BoardVO vo;
+        FileUpload upload = new FileUpload();
+        vo = upload.uploadPhoto(request);
+
+        System.out.println("Will update image to :" + vo.getImage());
+
+        int i = boardService.updateBoard(vo);
+        if(i == 0){
+            System.out.println("데이터 수정 성공!");
+        } else {
+            System.out.println("데이터 수정 실패.");
+        }
+        return "redirect:list";
+    }
+
+    @RequestMapping(value = "/board/delete/{id}", method = RequestMethod.GET)
+    public String deletePost(@PathVariable("id") int id, HttpServletRequest request) {
+        BoardVO boardVO = boardService.getBoard(id);
+        if(request.getParameter("pw").equals(boardVO.getPw())){
+            String filename = boardService.getBoard(id).getImage();
+            int i = boardService.deleteBoard(id);
+            if(i == 0){
+                FileUpload.deleteFile(request, filename);
+                System.out.println("데이터 삭제 성공!");
+            } else {
+
+                System.out.println("데이터 삭제 실패.");
+            }
+        }
+        return "redirect:../list";
+    }
+
+    @RequestMapping(value = "board/like", method = RequestMethod.GET)
+    public String addLove(BoardVO vo, HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("q"));
+        int likecount = boardService.getBoard(id).getLikecount();
+
+        vo.setLikecount(likecount+1);
+        vo.setSeq(id);
+        int i = boardService.updatelikecount(vo);
+
+        model.addAttribute("count", likecount+1);
+
+        if(i == 0){
+            System.out.println("like 성공" + (likecount+1));
+        } else {
+            System.out.println("like 실패.");
+        }
+        return "likecount";
+    }
 }

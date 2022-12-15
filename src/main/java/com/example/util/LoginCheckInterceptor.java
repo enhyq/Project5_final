@@ -24,6 +24,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
                            ModelAndView modelAndView) throws Exception {
 //        super.postHandle(request, response, handler, modelAndView);
 //        new HandlerInterceptor().postHandle(request, response, handler, modelAndView);
-        System.out.println("what is this");
+        System.out.println("Login post handle");
     }
 }

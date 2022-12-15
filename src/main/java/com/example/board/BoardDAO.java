@@ -6,15 +6,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// @Repository - DB나 파일과 같은 외부 I/O 작업 처리
 @Repository
 public class BoardDAO {
 
     @Autowired
     SqlSession sqlSession;
 
-    public int insertBoard(BoardVO vo) {
+    public int insertBoard(BoardVO vo){
         int result = sqlSession.insert("Board.insertBoard", vo);
+        return result;
+    }
+
+    public int deleteBoard(int seq) {
+        int result = sqlSession.delete("Board.deleteBoard", seq);
         return result;
     }
 
@@ -24,17 +28,17 @@ public class BoardDAO {
     }
 
     public BoardVO getBoard(int seq) {
-        BoardVO one = sqlSession.selectOne("Board.getBoard", seq);
-        return one;
+        BoardVO result = sqlSession.selectOne("Board.getBoard", seq);
+        return result;
     }
 
     public List<BoardVO> getBoardList() {
-        List<BoardVO> list = sqlSession.selectList("Board.getBoardList");
-        return list;
+        List<BoardVO> result = sqlSession.selectList("Board.getBoardList");
+        return result;
     }
 
-    public int deleteBoard(int seq) {
-        int result = sqlSession.delete("Board.deleteBoard", seq);
+    public int updatelikecount(BoardVO vo) {
+        int result = sqlSession.update("Board.updatelikecount", vo);
         return result;
     }
 }

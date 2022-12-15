@@ -17,15 +17,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="multipartResolver"
-                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- setting maximum upload size -->
-        <property name="maxUploadSize" value="100000" />
-    </bean>
-
-
     <mvc:resources mapping="/img/**" location="resource/img/" />
-<!--    <mvc:resources mapping="/img/**" location="upload/" />-->
 
     <bean id="loginCheckInterceptor" class="com.example.util.LoginCheckInterceptor" />
     <mvc:interceptors>
