@@ -46,7 +46,8 @@
                                     <span class="text-secondary">${u.ip}</span>
                                 </div>
                             </div>
-                            <img src="${pageContext.request.contextPath}/img/${u.getImage()}" class="card-img" alt="!!THERE IS NO IMAGE!!">
+                            <%-- ${pageContext.request.contextPath} --%>
+                            <img src="img/${u.getImage()}" class="card-img" alt="!!THERE IS NO IMAGE!!">
 
 
                             <div class="card-body">
