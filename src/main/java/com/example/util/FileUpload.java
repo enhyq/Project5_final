@@ -24,7 +24,7 @@ public class FileUpload {
         try{
             multipartRequest = new MultipartRequest(request, realPath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
 
-            filename = request.getContextPath() + "/" + multipartRequest.getFilesystemName("imagefile");
+            filename = request.getContextPath() + "/img/" + multipartRequest.getFilesystemName("imagefile");
             System.out.println(filename);
 
             one = new BoardVO();

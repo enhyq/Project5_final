@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <%-- ${pageContext.request.contextPath} --%>
-                            <img src="img/${u.getImage()}" class="card-img" alt="!!THERE IS NO IMAGE!!">
+                            <img src="${u.getImage()}" class="card-img" alt="!!THERE IS NO IMAGE!!">
 
 
                             <div class="card-body">

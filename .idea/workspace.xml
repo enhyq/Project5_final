@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae81ace3-f92c-415b-b158-10f4d8cd3a4f" name="Changes" comment="done">
+    <list default="true" id="ae81ace3-f92c-415b-b158-10f4d8cd3a4f" name="Changes" comment="edit upload file path so that it can run on multiple instance">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/util/FileUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/util/FileUpload.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/list.jsp" afterDir="false" />
@@ -224,7 +224,7 @@
       <workItem from="1670520433364" duration="4309000" />
       <workItem from="1671101692830" duration="12676000" />
       <workItem from="1671131782234" duration="8256000" />
-      <workItem from="1671140205727" duration="4200000" />
+      <workItem from="1671140205727" duration="4975000" />
     </task>
     <task id="LOCAL-00001" summary="done">
       <created>1671143605497</created>
@@ -240,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671143657788</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="edit upload file path so that it can run on multiple instance">
+      <created>1671148447710</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671148447710</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +266,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="done" />
-    <option name="LAST_COMMIT_MESSAGE" value="done" />
+    <MESSAGE value="edit upload file path so that it can run on multiple instance" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit upload file path so that it can run on multiple instance" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
